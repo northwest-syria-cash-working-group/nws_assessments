@@ -1,0 +1,28 @@
+{
+    "id": "38C07851",
+    "path": "~/R/nws_assessments/nws_assessments.Rmd",
+    "project_path": "nws_assessments.Rmd",
+    "type": "r_markdown",
+    "hash": "3137394020",
+    "contents": "",
+    "dirty": false,
+    "created": 1679380822173.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "159,0",
+        "scrollLine": "141",
+        "last_setup_crc32": "9AA420AC4402343f"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1679412998,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1679412998940,
+    "read_only": false,
+    "read_only_alternatives": []
+}
