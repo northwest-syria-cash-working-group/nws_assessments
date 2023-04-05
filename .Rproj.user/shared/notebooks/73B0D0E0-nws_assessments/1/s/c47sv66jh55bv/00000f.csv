@@ -1,0 +1,45 @@
+"0","not_assessed <- fsl %>% 
+  filter(activity == ""Cash Response"" & planned_implemented == ""Implemented"") %>% 
+  group_by(district, sub_district, site, admin4pcode) %>% 
+  summarise(beneficiaries = sum(beneficiaries, na.rm = TRUE), 
+            .groups = ""drop"") %>% 
+  left_join(reach %>%
+              mutate(market_assessed = ifelse(is.na(q278), ""not_assessed"", ""assessed"")) %>%
+              select(admin4pcode, market_assessed), 
+            by = ""admin4pcode"") %>% 
+  mutate(market_assessed = ifelse(is.na(market_assessed), ""not_assessed"", market_assessed)) %>% 
+  left_join(locations %>% 
+              select(admin3pcode, admin4pcode, longitude_x, latitude_y), 
+            by = ""admin4pcode"") %>% 
+  right_join(pcode3_shape %>%
+               filter(ADM2_EN %in% c(""Harim"", ""Idleb"", ""Jisr-Ash-Shugur"",
+                         ""Afrin"", ""Jebel Saman"", ""A'zaz"", ""Jarablus"", ""Al Bab"") &
+                        ADM3_PCODE %in% nw_pcode3),
+             by = c(""admin3pcode"" = ""ADM3_PCODE"")) %>%
+  mutate(market_assessed = ifelse(is.na(market_assessed), ""not_assessed"", market_assessed)) %>%
+  st_as_sf() %>% 
+  ggplot() +
+  geom_sf(size = .1, colour = ""grey70"") + 
+  geom_jitter(aes(x = longitude_x,
+                  y = latitude_y,
+                  colour = market_assessed, 
+                  size = beneficiaries, 
+                  text = paste0(""district: "", district, ""\n"",
+                                ""sub_district: "", sub_district, ""\n"", 
+                                ""community: "", site, ""\n"", 
+                                ""assessed: "", market_assessed, ""\n"", 
+                                ""beneficiaries: "", format(beneficiaries, big.mark = "",""))),
+              shape = 21, stroke = .2) +
+  scale_colour_manual(values = c(""black"", ""red"")) +
+  theme_void() + 
+  theme(plot.background = element_rect(fill = ""white"", colour = NA), 
+        plot.caption = element_text(hjust = .5), 
+        legend.text = element_text(size = 6), 
+        legend.title = element_text(size = 8)) + 
+  labs(title = ""MPC beneficiaries and assessed locations"", 
+       colour = ""Market assessed"") + 
+  guides(size = ""none"")
+"
+"2","Error in filter(., activity == ""Cash Response"" & planned_implemented ==  : 
+  object 'fsl' not found
+"
